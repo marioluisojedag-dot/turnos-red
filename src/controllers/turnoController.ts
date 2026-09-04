@@ -165,7 +165,5 @@ export function deleteTurno(req: Request, res: Response): void {
     return;
   }
 
-  res.status(200).json({
-    mensaje: 'Turno eliminado correctamente',
-  });
+  res.status(204).send();
 }

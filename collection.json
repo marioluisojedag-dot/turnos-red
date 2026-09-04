@@ -1,0 +1,1398 @@
+{
+  "info": {
+    "_postman_id": "43c49051-0ff7-4304-92f1-4d009375c138",
+    "name": "TurnosRed - Actividad 2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-09-04T04:01:16.000Z",
+    "updatedAt": "2026-09-04T04:01:17.000Z",
+    "lastUpdatedBy": "57862023",
+    "uid": "57862023-43c49051-0ff7-4304-92f1-4d009375c138"
+  },
+  "item": [
+    {
+      "name": "Listar turnos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response is an array\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Response matches JSON structure\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.be.an(\"array\");\r\n\r\n    jsonData.forEach((turno) => {\r\n        pm.expect(turno).to.be.an(\"object\");\r\n\r\n        pm.expect(turno.id).to.be.a(\"number\");\r\n        pm.expect(turno.paciente).to.be.a(\"string\");\r\n        pm.expect(turno.documento).to.be.a(\"string\");\r\n        pm.expect(turno.especialidad).to.be.a(\"string\");\r\n        pm.expect(turno.medicoId).to.be.a(\"number\");\r\n        pm.expect(turno.fecha).to.be.a(\"string\");\r\n        pm.expect(turno.hora).to.be.a(\"string\");\r\n        pm.expect(turno.confirmado).to.be.a(\"boolean\");\r\n    });\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "7ce35e6e-f9ab-4565-9dfd-76c4c477d4fc",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/turnos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "6f4a3f20-46b9-43f7-8981-a9ca18940901",
+          "name": "Listar turnos",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/turnos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "285"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"11d-Wag8XH76nXa2GsRAsDQgSJpKAM4\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 01:23:16 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "[\n  {\n    \"id\": 102,\n    \"paciente\": \"Carlos Ruiz\",\n    \"documento\": \"31654210\",\n    \"especialidad\": \"PEDIATRÍA\",\n    \"fecha\": \"2026-08-14\",\n    \"hora\": \"10:00\",\n    \"confirmado\": true\n  },\n  {\n    \"id\": 103,\n    \"paciente\": \"Ana Torres\",\n    \"documento\": \"24567891\",\n    \"especialidad\": \"CARDIOLOGÍA\",\n    \"fecha\": \"2026-08-15\",\n    \"hora\": \"11:30\",\n    \"confirmado\": false\n  }\n]",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-6f4a3f20-46b9-43f7-8981-a9ca18940901"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-7ce35e6e-f9ab-4565-9dfd-76c4c477d4fc"
+    },
+    {
+      "name": "Crear medico",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Response has medico id\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n});\r\n\r\npm.environment.set(\"medicoId\", jsonData.id);"
+            ]
+          }
+        }
+      ],
+      "id": "f2c521c2-2398-40b5-996c-95372c3ff09c",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": \"3\",\r\n  \"nombre\": \"Pedro Martínez\",\r\n  \"especialidad\": \"Clínica médica\",\r\n  \"disponible\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/medicos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "46dc52d2-9e04-4b49-bd4d-eedab24a5e80",
+          "name": "Crear medico",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"3\",\r\n  \"nombre\": \"Pedro Martínez\",\r\n  \"especialidad\": \"Clínica médica\",\r\n  \"disponible\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "87"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"57-9buJY5z4wKeE+mSZvEwMYD+SzJ8\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 02:21:58 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"id\": 3,\n  \"nombre\": \"Pedro Martínez\",\n  \"especialidad\": \"Clínica médica\",\n  \"disponible\": true\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-46dc52d2-9e04-4b49-bd4d-eedab24a5e80"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-f2c521c2-2398-40b5-996c-95372c3ff09c"
+    },
+    {
+      "name": "Turno invalido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Error has standard validation format\", function () {\r\n    pm.expect(jsonData).to.have.property(\"status\", 400);\r\n    pm.expect(jsonData).to.have.property(\r\n        \"message\",\r\n        \"Error de validación en los datos ingresados\"\r\n    );\r\n    pm.expect(jsonData).to.have.property(\r\n        \"code\",\r\n        \"VALIDATION_ERROR\"\r\n    );\r\n    pm.expect(jsonData).to.have.property(\"details\");\r\n    pm.expect(jsonData.details).to.be.an(\"array\");\r\n    pm.expect(jsonData.details.length).to.be.greaterThan(0);\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "15802486-ea1a-4520-aa92-27900958277a",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": \"20\",\r\n  \"paciente\": \"Pedro González\",\r\n  \"documento\": 12345678,\r\n  \"especialidad\": \"Pediatria\",\r\n  \"fecha\": \"31/08/2026\",\r\n  \"hora\": \"10:30\",\r\n  \"confirmado\": \"si\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/turnos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "9885907c-4097-4b0c-8477-75d41c2c0fff",
+          "name": "Turno invalido",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"20\",\r\n  \"paciente\": \"Pedro González\",\r\n  \"documento\": 12345678,\r\n  \"especialidad\": \"Pediatria\",\r\n  \"fecha\": \"31/08/2026\",\r\n  \"hora\": \"10:30\",\r\n  \"confirmado\": \"si\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/turnos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "466"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1d2-qT4ZyKqynyJy3I3FY7V357sqcFw\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:30:23 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"status\": 400,\n  \"message\": \"Error de validación en los datos ingresados\",\n  \"code\": \"VALIDATION_ERROR\",\n  \"details\": [\n    {\n      \"expected\": \"string\",\n      \"code\": \"invalid_type\",\n      \"path\": [\n        \"documento\"\n      ],\n      \"message\": \"Invalid input: expected string, received number\"\n    },\n    {\n      \"code\": \"invalid_value\",\n      \"values\": [\n        \"Clínica médica\",\n        \"Pediatría\",\n        \"Odontología\",\n        \"Nutrición\"\n      ],\n      \"path\": [\n        \"especialidad\"\n      ],\n      \"message\": \"Invalid option: expected one of \\\"Clínica médica\\\"|\\\"Pediatría\\\"|\\\"Odontología\\\"|\\\"Nutrición\\\"\"\n    }\n  ]\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-9885907c-4097-4b0c-8477-75d41c2c0fff"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-15802486-ea1a-4520-aa92-27900958277a"
+    },
+    {
+      "name": "Medico por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Response has medico id\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n});\r\n\r\npm.test(\"Medico id matches saved variable\", function () {\r\n    pm.expect(jsonData.id).to.eql(\r\n        Number(pm.environment.get(\"medicoId\"))\r\n    );\r\n});\r\n\r\npm.test(\"Medico has required fields\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"nombre\");\r\n    pm.expect(jsonData).to.have.property(\"especialidad\");\r\n    pm.expect(jsonData).to.have.property(\"disponible\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "854e684f-6e0f-48c6-9b2c-97f2076e64d5",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos",
+            "{{medicoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "c860f8e6-e8b1-491c-83b0-3df588f9bc84",
+          "name": "Medico por ID",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos",
+                "{{medicoId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "87"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"57-9buJY5z4wKeE+mSZvEwMYD+SzJ8\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 02:55:57 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"id\": 3,\n  \"nombre\": \"Pedro Martínez\",\n  \"especialidad\": \"Clínica médica\",\n  \"disponible\": true\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-c860f8e6-e8b1-491c-83b0-3df588f9bc84"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-854e684f-6e0f-48c6-9b2c-97f2076e64d5"
+    },
+    {
+      "name": "Crear turno",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Response has turno id\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n});\r\n\r\npm.environment.set(\"turnoId\", jsonData.id);"
+            ]
+          }
+        }
+      ],
+      "id": "35833175-e30b-4cad-bff2-afaaac7a7836",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": \"107\",\r\n  \"paciente\": \"Juan Pérez\",\r\n  \"documento\": \"12345678\",\r\n  \"especialidad\": \"Pediatría\",\r\n  \"medicoId\": 1,\r\n  \"fecha\": \"20/08/2026\",\r\n  \"hora\": \"10.00\",\r\n  \"confirmado\": \"si\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/turnos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "8c23ce08-15b1-4923-9e98-6f53a0018678",
+          "name": "Crear turno",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"10\",\r\n  \"paciente\": \"Ana Pérez\",\r\n  \"documento\": \"12345678\",\r\n  \"especialidad\": \"Pediatría\",\r\n  \"fecha\": \"31/08/2026\",\r\n  \"hora\": \"10:30\",\r\n  \"confirmado\": \"si\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/turnos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "138"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"8a-BetjaYyLTTkC0PdBIki+WlOL53s\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 02:51:46 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"id\": 10,\n  \"paciente\": \"Ana Pérez\",\n  \"documento\": \"12345678\",\n  \"especialidad\": \"Pediatría\",\n  \"fecha\": \"2026-08-31\",\n  \"hora\": \"10:30\",\n  \"confirmado\": true\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-8c23ce08-15b1-4923-9e98-6f53a0018678"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-35833175-e30b-4cad-bff2-afaaac7a7836"
+    },
+    {
+      "name": "Turno por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Response has turno id\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n});\r\n\r\npm.test(\"Turno id matches saved variable\", function () {\r\n    pm.expect(jsonData.id).to.eql(\r\n        Number(pm.environment.get(\"turnoId\"))\r\n    );\r\n});\r\n\r\npm.test(\"Turno has required fields\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"paciente\");\r\n    pm.expect(jsonData).to.have.property(\"documento\");\r\n    pm.expect(jsonData).to.have.property(\"especialidad\");\r\n    pm.expect(jsonData).to.have.property(\"fecha\");\r\n    pm.expect(jsonData).to.have.property(\"hora\");\r\n    pm.expect(jsonData).to.have.property(\"confirmado\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "619ef737-df08-464d-8b1b-e530441609bd",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/turnos/{{turnoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos",
+            "{{turnoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "46f264f2-db0a-4113-878a-5e6930b4e487",
+          "name": "Turno por ID",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/turnos/{{turnoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "{{turnoId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "138"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"8a-BetjaYyLTTkC0PdBIki+WlOL53s\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 02:58:44 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"id\": 10,\n  \"paciente\": \"Ana Pérez\",\n  \"documento\": \"12345678\",\n  \"especialidad\": \"Pediatría\",\n  \"fecha\": \"2026-08-31\",\n  \"hora\": \"10:30\",\n  \"confirmado\": true\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-46f264f2-db0a-4113-878a-5e6930b4e487"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-619ef737-df08-464d-8b1b-e530441609bd"
+    },
+    {
+      "name": "Turno no encontrado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Error has standard format\", function () {\r\n    pm.expect(jsonData).to.have.property(\"status\", 404);\r\n    pm.expect(jsonData).to.have.property(\"message\");\r\n    pm.expect(jsonData).to.have.property(\"code\", \"NOT_FOUND\");\r\n    pm.expect(jsonData).to.have.property(\"details\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "1bfdc6ae-6637-4f40-8045-eecaf98873ea",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/turnos/999999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos",
+            "999999"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "2521af6a-a620-4157-854d-489992eda8cf",
+          "name": "Turno no encontrado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/turnos/999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "999999"
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "78"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"4e-5zOKShM71Pk0RxwTQnTAMe4fp1E\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:14:36 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"status\": 404,\n  \"message\": \"Turno no encontrado\",\n  \"code\": \"NOT_FOUND\",\n  \"details\": []\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-2521af6a-a620-4157-854d-489992eda8cf"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-1bfdc6ae-6637-4f40-8045-eecaf98873ea"
+    },
+    {
+      "name": "Actualizar medico",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Updated medico has required fields\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"nombre\");\r\n    pm.expect(jsonData).to.have.property(\"especialidad\");\r\n    pm.expect(jsonData).to.have.property(\"disponible\");\r\n});\r\n\r\npm.test(\"Medico was updated\", function () {\r\n    pm.expect(jsonData.nombre).to.eql(\"Pedro Martínez Actualizado\");\r\n    pm.expect(jsonData.disponible).to.eql(false);\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "c4296747-f54a-42f8-be95-e59851037334",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": \"3\",\r\n  \"nombre\": \"Pedro Martínez Actualizado\",\r\n  \"especialidad\": \"Clínica médica\",\r\n  \"disponible\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos",
+            "{{medicoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "552fb285-6129-4aeb-9abd-19aa829ff3b8",
+          "name": "Actualizar medico",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"3\",\r\n  \"nombre\": \"Pedro Martínez Actualizado\",\r\n  \"especialidad\": \"Clínica médica\",\r\n  \"disponible\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos",
+                "{{medicoId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "100"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"64-Z5/0pqHmalpKBZ+FDpvTMxywgLI\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:11:55 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"id\": 3,\n  \"nombre\": \"Pedro Martínez Actualizado\",\n  \"especialidad\": \"Clínica médica\",\n  \"disponible\": false\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-552fb285-6129-4aeb-9abd-19aa829ff3b8"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-c4296747-f54a-42f8-be95-e59851037334"
+    },
+    {
+      "name": "Eliminar medico",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r\n    pm.response.to.have.status(204);\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "85e1ca86-fd0e-417a-8481-6a69fd23fdf8",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos",
+            "{{medicoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "905bc32a-c888-4d8d-99d8-ba48f57beb8d",
+          "name": "Eliminar medico",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos",
+                "{{medicoId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "45"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2d-NARglkjHL9IoiDD+jx9N9e0k9Ig\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:14:14 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"mensaje\": \"Médico eliminado correctamente\"\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-905bc32a-c888-4d8d-99d8-ba48f57beb8d"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-85e1ca86-fd0e-417a-8481-6a69fd23fdf8"
+    },
+    {
+      "name": "Medico eliminado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Error has standard format\", function () {\r\n    pm.expect(jsonData).to.have.property(\"status\", 404);\r\n    pm.expect(jsonData).to.have.property(\"message\");\r\n    pm.expect(jsonData).to.have.property(\"code\", \"NOT_FOUND\");\r\n    pm.expect(jsonData).to.have.property(\"details\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "25d3c8cf-b861-4fd8-a2ce-be1cf037cc7b",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos",
+            "{{medicoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "7a6d8498-14e3-438a-945e-a6f6d958b703",
+          "name": "Medico eliminado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos/{{medicoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos",
+                "{{medicoId}}"
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "80"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"50-tZCOsdfj7Wi0NZfcgfSIOUy5sA0\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:24:19 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"status\": 404,\n  \"message\": \"Médico no encontrado\",\n  \"code\": \"NOT_FOUND\",\n  \"details\": []\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-7a6d8498-14e3-438a-945e-a6f6d958b703"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-25d3c8cf-b861-4fd8-a2ce-be1cf037cc7b"
+    },
+    {
+      "name": "Listar medicos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response is an array\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Response matches JSON structure\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.be.an(\"array\");\r\n\r\n    jsonData.forEach((medico) => {\r\n        pm.expect(medico).to.be.an(\"object\");\r\n\r\n        pm.expect(medico.id).to.be.a(\"number\");\r\n        pm.expect(medico.nombre).to.be.a(\"string\");\r\n        pm.expect(medico.especialidad).to.be.a(\"string\");\r\n        pm.expect(medico.disponible).to.be.a(\"boolean\");\r\n    });\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "35d6ed3f-8d97-4cd6-8957-44ca86ceeb75",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/medicos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "1e44b801-30d6-4d93-8ca1-877d71a40da4",
+          "name": "Listar medicos",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "2"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 02:11:17 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "[]",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-1e44b801-30d6-4d93-8ca1-877d71a40da4"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-35d6ed3f-8d97-4cd6-8957-44ca86ceeb75"
+    },
+    {
+      "name": "Actualizar turno",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test(\"Response has turno id\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n});\r\n\r\npm.test(\"Turno id matches saved variable\", function () {\r\n    pm.expect(jsonData.id).to.eql(\r\n        Number(pm.environment.get(\"turnoId\"))\r\n    );\r\n});\r\n\r\npm.test(\"Turno has required fields\", function () {\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"paciente\");\r\n    pm.expect(jsonData).to.have.property(\"documento\");\r\n    pm.expect(jsonData).to.have.property(\"especialidad\");\r\n    pm.expect(jsonData).to.have.property(\"medicoId\");\r\n    pm.expect(jsonData).to.have.property(\"fecha\");\r\n    pm.expect(jsonData).to.have.property(\"hora\");\r\n    pm.expect(jsonData).to.have.property(\"confirmado\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "b6e968d1-3884-43dc-ad68-240e2da0809c",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": \"107\",\r\n  \"paciente\": \"Ana Pérez Actualizada\",\r\n  \"documento\": \"12345678\",\r\n  \"especialidad\": \"Pediatría\",\r\n  \"medicoId\": 1,\r\n  \"fecha\": \"31/08/2026\",\r\n  \"hora\": \"11:00\",\r\n  \"confirmado\": \"no\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/turnos/{{turnoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos",
+            "{{turnoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "3d710b96-adfe-4e67-a2ba-e207e61198bf",
+          "name": "Actualizar turno",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"10\",\r\n  \"paciente\": \"Ana Pérez Actualizada\",\r\n  \"documento\": \"12345678\",\r\n  \"especialidad\": \"Pediatría\",\r\n  \"fecha\": \"31/08/2026\",\r\n  \"hora\": \"11:00\",\r\n  \"confirmado\": \"no\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/turnos/{{turnoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "{{turnoId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "151"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"97-7INhi/4GSb53bQILGoU9doTnFzY\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:26:25 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"id\": 10,\n  \"paciente\": \"Ana Pérez Actualizada\",\n  \"documento\": \"12345678\",\n  \"especialidad\": \"Pediatría\",\n  \"fecha\": \"2026-08-31\",\n  \"hora\": \"11:00\",\n  \"confirmado\": false\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-3d710b96-adfe-4e67-a2ba-e207e61198bf"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-b6e968d1-3884-43dc-ad68-240e2da0809c"
+    },
+    {
+      "name": "Eliminar turno",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r\n    pm.response.to.have.status(204);\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "85849f62-5203-46be-ab2f-ddbb08d2b954",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/turnos/{{turnoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "turnos",
+            "{{turnoId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "779ca02c-300b-4890-a9b3-95f54130f014",
+          "name": "Eliminar turno",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/turnos/{{turnoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "{{turnoId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "43"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2b-dO4GTeJGGloAEslAAAqYLKRYpPU\""
+            },
+            {
+              "key": "date",
+              "value": "Wed, 02 Sep 2026 03:29:34 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"mensaje\": \"Turno eliminado correctamente\"\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-779ca02c-300b-4890-a9b3-95f54130f014"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-85849f62-5203-46be-ab2f-ddbb08d2b954"
+    },
+    {
+      "name": "Medico invalido",
+      "id": "386109d9-5537-4a8f-8b80-52c77df8d6f0",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 10,\r\n  \"nombre\": \"\",\r\n  \"especialidad\": \"Pediatría\",\r\n  \"disponible\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/medicos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "medicos"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "353d6b66-7571-4364-95e7-02a0843b9069",
+          "name": "Medico invalido",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 10,\r\n  \"nombre\": \"\",\r\n  \"especialidad\": \"Pediatría\",\r\n  \"disponible\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "257"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"101-+JNreFHb4X95htMP4VNdipJmkMo\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 04 Sep 2026 02:39:34 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n  \"status\": 400,\n  \"message\": \"Error de validación en los datos ingresados\",\n  \"code\": \"VALIDATION_ERROR\",\n  \"details\": [\n    {\n      \"origin\": \"string\",\n      \"code\": \"too_small\",\n      \"minimum\": 1,\n      \"inclusive\": true,\n      \"path\": [\n        \"nombre\"\n      ],\n      \"message\": \"Too small: expected string to have >=1 characters\"\n    }\n  ]\n}",
+          "createdAt": "2026-09-04T04:01:17.000Z",
+          "updatedAt": "2026-09-04T04:01:17.000Z",
+          "uid": "57862023-353d6b66-7571-4364-95e7-02a0843b9069"
+        }
+      ],
+      "createdAt": "2026-09-04T04:01:17.000Z",
+      "updatedAt": "2026-09-04T04:01:17.000Z",
+      "uid": "57862023-386109d9-5537-4a8f-8b80-52c77df8d6f0"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "turnoId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "medicoId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

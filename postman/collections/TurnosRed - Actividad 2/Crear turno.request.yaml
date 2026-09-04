@@ -5,17 +5,19 @@ body:
   type: json
   content: "{\r
 
-    \  \"id\": \"10\",\r
+    \  \"id\": \"107\",\r
 
-    \  \"paciente\": \"Ana Pérez\",\r
+    \  \"paciente\": \"Juan Pérez\",\r
 
     \  \"documento\": \"12345678\",\r
 
     \  \"especialidad\": \"Pediatría\",\r
 
-    \  \"fecha\": \"31/08/2026\",\r
+    \  \"medicoId\": 1,\r
 
-    \  \"hora\": \"10:30\",\r
+    \  \"fecha\": \"20/08/2026\",\r
+
+    \  \"hora\": \"10.00\",\r
 
     \  \"confirmado\": \"si\"\r
 
