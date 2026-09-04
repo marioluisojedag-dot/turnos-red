@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/medicos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": 10,\r
+
+    \  \"nombre\": \"\",\r
+
+    \  \"especialidad\": \"Pediatría\",\r
+
+    \  \"disponible\": true\r
+
+    }"
+examples: .resources/Medico invalido.resources/examples
+order: 4503533955120002

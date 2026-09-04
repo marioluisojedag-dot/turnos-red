@@ -10,7 +10,60 @@ import {
 import { ApiError } from '../middleware/apiError.js';
 
 export function getTurnos(req: Request, res: Response): void {
-  const turnos = obtenerTurnos();
+
+  const especialidad =
+    typeof req.query.especialidad === 'string'
+      ? req.query.especialidad
+      : undefined;
+
+  const fecha =
+    typeof req.query.fecha === 'string'
+      ? req.query.fecha
+      : undefined;
+
+  const medicoId =
+    typeof req.query.medicoId === 'string'
+      ? Number(req.query.medicoId)
+      : undefined;
+
+  if (medicoId !== undefined && (!Number.isInteger(medicoId) || medicoId <= 0)) {
+    throw new ApiError(
+      400,
+      'El medicoId debe ser un número entero positivo',
+      'VALIDATION_ERROR',
+      []
+    );
+  }
+
+  if (fecha !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+    throw new ApiError(
+      400,
+      'La fecha debe tener el formato YYYY-MM-DD',
+      'VALIDATION_ERROR',
+      []
+    );
+  }
+
+  const especialidadesValidas = [
+  'Clínica médica',
+  'Pediatría',
+  'Odontología',
+  'Nutrición',
+];
+
+if (
+  especialidad !== undefined &&
+  !especialidadesValidas.includes(especialidad)
+) {
+  throw new ApiError(
+    400,
+    'Especialidad no válida',
+    'VALIDATION_ERROR',
+    []
+  );
+}
+
+  const turnos = obtenerTurnos(especialidad, fecha, medicoId);
 
   res.status(200).json(turnos);
 }

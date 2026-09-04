@@ -4,6 +4,7 @@
     "paciente": "   Carlos Ruiz ",
     "documento": 31654210,
     "especialidad": "PEDIATRÍA",
+    "medicoId": 1,
     "fecha": "14/08/2026",
     "hora": "10.00",
     "confirmado": "si"
@@ -13,6 +14,7 @@
     "paciente": "Ana Torres",
     "documento": "24567891",
     "especialidad": "CARDIOLOGÍA",
+    "medicoId": 2,
     "fecha": "15/08/2026",
     "hora": "11.30",
     "confirmado": "no"
@@ -22,6 +24,7 @@
     "paciente": "Registro inválido",
     "documento": 12345678,
     "especialidad": "MEDICINA",
+    "medicoId": 1,
     "fecha": "16/08/2026",
     "hora": "12.00",
     "confirmado": "si"

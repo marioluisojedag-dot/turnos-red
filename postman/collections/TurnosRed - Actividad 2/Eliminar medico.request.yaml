@@ -3,21 +3,9 @@ url: "{{baseUrl}}/medicos/{{medicoId}}"
 method: DELETE
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code is 200\", function () {\r
+    code: "pm.test(\"Status code is 204\", function () {\r
 
-      \    pm.response.to.have.status(200);\r
-
-      });\r
-
-      \r
-
-      const jsonData = pm.response.json();\r
-
-      \r
-
-      pm.test(\"Delete response has message\", function () {\r
-
-      \    pm.expect(jsonData).to.have.property(\"mensaje\");\r
+      \    pm.response.to.have.status(204);\r
 
       });"
     language: text/javascript

@@ -36,7 +36,7 @@ scripts:
 
       \r
 
-      pm.collectionVariables.set(\"medicoId\", jsonData.id);"
+      pm.environment.set(\"medicoId\", jsonData.id);"
     language: text/javascript
 examples: .resources/Crear medico.resources/examples
 order: 478254561785286

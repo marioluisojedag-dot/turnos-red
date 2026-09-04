@@ -1,0 +1,49 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/medicos"
+  method: POST
+  body:
+    type: json
+    content: "{\r
+
+      \  \"id\": 10,\r
+
+      \  \"nombre\": \"\",\r
+
+      \  \"especialidad\": \"Pediatría\",\r
+
+      \  \"disponible\": true\r
+
+      }"
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "257"
+    etag: W/"101-+JNreFHb4X95htMP4VNdipJmkMo"
+    date: Fri, 04 Sep 2026 02:39:34 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "status": 400,
+        "message": "Error de validación en los datos ingresados",
+        "code": "VALIDATION_ERROR",
+        "details": [
+          {
+            "origin": "string",
+            "code": "too_small",
+            "minimum": 1,
+            "inclusive": true,
+            "path": [
+              "nombre"
+            ],
+            "message": "Too small: expected string to have >=1 characters"
+          }
+        ]
+      }
+order: 1788489826526

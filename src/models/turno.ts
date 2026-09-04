@@ -3,6 +3,7 @@ export interface TurnoCrudo {
   paciente: string;
   documento: string | number;
   especialidad: string;
+  medicoId: string | number;
   fecha: string;
   hora: string;
   confirmado: string | boolean;
@@ -14,6 +15,7 @@ export interface Turno {
   paciente: string;
   documento: string;
   especialidad: string;
+  medicoId: number;
   fecha: string;
   hora: string;
   confirmado: boolean;

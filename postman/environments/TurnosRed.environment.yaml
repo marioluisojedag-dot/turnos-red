@@ -1,0 +1,8 @@
+name: TurnosRed
+values:
+  - key: baseUrl
+    value: ''
+  - key: turnoId
+    value: ''
+  - key: medicoId
+    value: ''

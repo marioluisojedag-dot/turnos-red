@@ -5,11 +5,25 @@ export function normalizarTurno(turnoCrudo: TurnoCrudo): Turno | null {
   const id = Number(turnoCrudo.id);
   const paciente = turnoCrudo.paciente.trim();
   const documento = String(turnoCrudo.documento);
-  const especialidad = turnoCrudo.especialidad.trim();
+  const especialidadTexto = turnoCrudo.especialidad.trim().toUpperCase();
+
+  const especialidades: Record<string, string> = {
+    'CLÍNICA MÉDICA': 'Clínica médica',
+    'PEDIATRÍA': 'Pediatría',
+    'ODONTOLOGÍA': 'Odontología',
+    'NUTRICIÓN': 'Nutrición',
+  };
+
+  const especialidad = especialidades[especialidadTexto];
+  const medicoId = Number(turnoCrudo.medicoId);
 
   //id
   if (!Number.isInteger(id) || id <= 0) {
     return null;
+  }
+
+  if (!Number.isInteger(medicoId) || medicoId <= 0) {
+  return null;
   }
 
   //paciente, documento, especialidad
@@ -86,6 +100,7 @@ export function normalizarTurno(turnoCrudo: TurnoCrudo): Turno | null {
     paciente: paciente,
     documento: documento,
     especialidad: especialidad,
+    medicoId: medicoId,
     fecha: fecha,
     hora: hora,
     confirmado: confirmado,
@@ -96,8 +111,26 @@ export function normalizarTurno(turnoCrudo: TurnoCrudo): Turno | null {
 
 const turnos: Turno[] = [];
 
-export function obtenerTurnos(): Turno[] {
-  return turnos;
+export function obtenerTurnos(
+  especialidad?: string,
+  fecha?: string,
+  medicoId?: number
+): Turno[] {
+  return turnos.filter((turno) => {
+    if (especialidad && turno.especialidad !== especialidad) {
+      return false;
+    }
+
+    if (fecha && turno.fecha !== fecha) {
+      return false;
+    }
+
+    if (medicoId !== undefined && turno.medicoId !== medicoId) {
+      return false;
+    }
+
+    return true;
+  });
 }
 
 export function obtenerTurnoPorId(id: number): Turno | undefined {

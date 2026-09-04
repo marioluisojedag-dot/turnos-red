@@ -9,6 +9,10 @@ export const turnoSchema = z.object({
     'Odontología',
     'Nutrición',
   ]),
+  medicoId: z.union([
+    z.number().int().positive(),
+    z.string().min(1),
+  ]),
   id: z.union([
     z.number().int().positive(),
     z.string().min(1),

@@ -27,7 +27,7 @@ scripts:
 
       \    pm.expect(jsonData.id).to.eql(\r
 
-      \        Number(pm.collectionVariables.get(\"medicoId\"))\r
+      \        Number(pm.environment.get(\"medicoId\"))\r
 
       \    );\r
 

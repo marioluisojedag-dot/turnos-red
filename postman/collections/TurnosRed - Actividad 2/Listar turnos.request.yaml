@@ -19,6 +19,44 @@ scripts:
 
       \    pm.expect(jsonData).to.be.an(\"array\");\r
 
+      });\r
+
+      \r
+
+      pm.test(\"Response matches JSON structure\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData).to.be.an(\"array\");\r
+
+      \r
+
+      \    jsonData.forEach((turno) => {\r
+
+      \        pm.expect(turno).to.be.an(\"object\");\r
+
+      \r
+
+      \        pm.expect(turno.id).to.be.a(\"number\");\r
+
+      \        pm.expect(turno.paciente).to.be.a(\"string\");\r
+
+      \        pm.expect(turno.documento).to.be.a(\"string\");\r
+
+      \        pm.expect(turno.especialidad).to.be.a(\"string\");\r
+
+      \        pm.expect(turno.medicoId).to.be.a(\"number\");\r
+
+      \        pm.expect(turno.fecha).to.be.a(\"string\");\r
+
+      \        pm.expect(turno.hora).to.be.a(\"string\");\r
+
+      \        pm.expect(turno.confirmado).to.be.a(\"boolean\");\r
+
+      \    });\r
+
       });"
     language: text/javascript
 examples: .resources/Listar turnos.resources/examples

@@ -113,7 +113,7 @@ export function deleteMedico(req: Request, res: Response): void {
     );
   }
 
-  res.status(200).json({
+  res.status(204).json({
     mensaje: 'Médico eliminado correctamente',
   });
 }

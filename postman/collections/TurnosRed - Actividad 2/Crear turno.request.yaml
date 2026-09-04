@@ -42,7 +42,7 @@ scripts:
 
       \r
 
-      pm.collectionVariables.set(\"turnoId\", jsonData.id);"
+      pm.environment.set(\"turnoId\", jsonData.id);"
     language: text/javascript
 examples: .resources/Crear turno.resources/examples
 order: 4017058830902414
