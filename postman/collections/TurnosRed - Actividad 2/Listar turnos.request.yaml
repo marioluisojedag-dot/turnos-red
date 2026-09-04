@@ -1,0 +1,25 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response is an array\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData).to.be.an(\"array\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/Listar turnos.resources/examples
+order: 1788230691108

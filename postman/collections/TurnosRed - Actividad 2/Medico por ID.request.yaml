@@ -1,0 +1,55 @@
+$kind: http-request
+url: "{{baseUrl}}/medicos/{{medicoId}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Response has medico id\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Medico id matches saved variable\", function () {\r
+
+      \    pm.expect(jsonData.id).to.eql(\r
+
+      \        Number(pm.collectionVariables.get(\"medicoId\"))\r
+
+      \    );\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Medico has required fields\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"nombre\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"especialidad\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"disponible\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/Medico por ID.resources/examples
+order: 1869987996702048

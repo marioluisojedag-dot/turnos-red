@@ -1,0 +1,66 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"20\",\r
+
+    \  \"paciente\": \"Pedro González\",\r
+
+    \  \"documento\": 12345678,\r
+
+    \  \"especialidad\": \"Pediatria\",\r
+
+    \  \"fecha\": \"31/08/2026\",\r
+
+    \  \"hora\": \"10:30\",\r
+
+    \  \"confirmado\": \"si\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 400\", function () {\r
+
+      \    pm.response.to.have.status(400);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Error has standard validation format\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"status\", 400);\r
+
+      \    pm.expect(jsonData).to.have.property(\r
+
+      \        \"message\",\r
+
+      \        \"Error de validación en los datos ingresados\"\r
+
+      \    );\r
+
+      \    pm.expect(jsonData).to.have.property(\r
+
+      \        \"code\",\r
+
+      \        \"VALIDATION_ERROR\"\r
+
+      \    );\r
+
+      \    pm.expect(jsonData).to.have.property(\"details\");\r
+
+      \    pm.expect(jsonData.details).to.be.an(\"array\");\r
+
+      \    pm.expect(jsonData.details.length).to.be.greaterThan(0);\r
+
+      });"
+    language: text/javascript
+examples: .resources/Turno invalido.resources/examples
+order: 1626682180245482

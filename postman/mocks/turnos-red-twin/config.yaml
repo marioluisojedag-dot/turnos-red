@@ -1,0 +1,15 @@
+id: 01a06876-ea7d-74df-b110-44136a3c021a
+version: 1
+name: TurnosRed Digital Twin
+slug: turnos-red-twin
+enableSession: true
+protocol: http
+port: 4500
+autoRestartOnChange: true
+logging:
+  level: verbose
+  showBody: true
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos/{{turnoId}}"
+method: DELETE
+examples: .resources/Eliminar turno.resources/examples
+order: 4501275489708855

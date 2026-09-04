@@ -1,0 +1,42 @@
+$kind: http-request
+url: "{{baseUrl}}/medicos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"3\",\r
+
+    \  \"nombre\": \"Pedro Martínez\",\r
+
+    \  \"especialidad\": \"Clínica médica\",\r
+
+    \  \"disponible\": true\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Response has medico id\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      });\r
+
+      \r
+
+      pm.collectionVariables.set(\"medicoId\", jsonData.id);"
+    language: text/javascript
+examples: .resources/Crear medico.resources/examples
+order: 478254561785286

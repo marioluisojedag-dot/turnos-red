@@ -1,0 +1,61 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos/{{turnoId}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Response has turno id\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Turno id matches saved variable\", function () {\r
+
+      \    pm.expect(jsonData.id).to.eql(\r
+
+      \        Number(pm.collectionVariables.get(\"turnoId\"))\r
+
+      \    );\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Turno has required fields\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"paciente\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"documento\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"especialidad\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"fecha\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"hora\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"confirmado\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/Turno por ID.resources/examples
+order: 4019350276178422

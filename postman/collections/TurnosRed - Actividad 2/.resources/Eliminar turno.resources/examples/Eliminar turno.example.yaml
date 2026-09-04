@@ -1,0 +1,22 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/turnos/{{turnoId}}"
+  method: DELETE
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "43"
+    etag: W/"2b-dO4GTeJGGloAEslAAAqYLKRYpPU"
+    date: Wed, 02 Sep 2026 03:29:34 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Turno eliminado correctamente"
+      }
+order: 1788319796958

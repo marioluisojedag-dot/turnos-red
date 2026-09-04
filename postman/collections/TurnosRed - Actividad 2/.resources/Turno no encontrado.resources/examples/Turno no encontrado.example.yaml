@@ -1,0 +1,25 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/turnos/999999"
+  method: GET
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "78"
+    etag: W/"4e-5zOKShM71Pk0RxwTQnTAMe4fp1E"
+    date: Wed, 02 Sep 2026 03:14:36 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "status": 404,
+        "message": "Turno no encontrado",
+        "code": "NOT_FOUND",
+        "details": []
+      }
+order: 1788318879515

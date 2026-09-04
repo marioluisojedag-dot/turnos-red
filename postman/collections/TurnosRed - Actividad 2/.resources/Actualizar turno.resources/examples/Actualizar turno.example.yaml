@@ -1,0 +1,47 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/turnos/{{turnoId}}"
+  method: PUT
+  body:
+    type: json
+    content: "{\r
+
+      \  \"id\": \"10\",\r
+
+      \  \"paciente\": \"Ana Pérez Actualizada\",\r
+
+      \  \"documento\": \"12345678\",\r
+
+      \  \"especialidad\": \"Pediatría\",\r
+
+      \  \"fecha\": \"31/08/2026\",\r
+
+      \  \"hora\": \"11:00\",\r
+
+      \  \"confirmado\": \"no\"\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "151"
+    etag: W/"97-7INhi/4GSb53bQILGoU9doTnFzY"
+    date: Wed, 02 Sep 2026 03:26:25 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 10,
+        "paciente": "Ana Pérez Actualizada",
+        "documento": "12345678",
+        "especialidad": "Pediatría",
+        "fecha": "2026-08-31",
+        "hora": "11:00",
+        "confirmado": false
+      }
+order: 1788319603310

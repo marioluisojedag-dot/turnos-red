@@ -1,0 +1,22 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/medicos/{{medicoId}}"
+  method: DELETE
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "45"
+    etag: W/"2d-NARglkjHL9IoiDD+jx9N9e0k9Ig"
+    date: Wed, 02 Sep 2026 03:14:14 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Médico eliminado correctamente"
+      }
+order: 1788318858861

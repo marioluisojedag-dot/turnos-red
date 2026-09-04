@@ -1,0 +1,42 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/turnos"
+  method: GET
+  body:
+    type: json
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "285"
+    etag: W/"11d-Wag8XH76nXa2GsRAsDQgSJpKAM4"
+    date: Wed, 02 Sep 2026 01:23:16 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": 102,
+          "paciente": "Carlos Ruiz",
+          "documento": "31654210",
+          "especialidad": "PEDIATRÍA",
+          "fecha": "2026-08-14",
+          "hora": "10:00",
+          "confirmado": true
+        },
+        {
+          "id": 103,
+          "paciente": "Ana Torres",
+          "documento": "24567891",
+          "especialidad": "CARDIOLOGÍA",
+          "fecha": "2026-08-15",
+          "hora": "11:30",
+          "confirmado": false
+        }
+      ]
+order: 1788312202715

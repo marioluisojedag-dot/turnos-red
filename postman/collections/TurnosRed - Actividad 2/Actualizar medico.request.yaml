@@ -1,0 +1,54 @@
+$kind: http-request
+url: "{{baseUrl}}/medicos/{{medicoId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"3\",\r
+
+    \  \"nombre\": \"Pedro Martínez Actualizado\",\r
+
+    \  \"especialidad\": \"Clínica médica\",\r
+
+    \  \"disponible\": false\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Updated medico has required fields\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"nombre\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"especialidad\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"disponible\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Medico was updated\", function () {\r
+
+      \    pm.expect(jsonData.nombre).to.eql(\"Pedro Martínez Actualizado\");\r
+
+      \    pm.expect(jsonData.disponible).to.eql(false);\r
+
+      });"
+    language: text/javascript
+examples: .resources/Actualizar medico.resources/examples
+order: 4386167030170584

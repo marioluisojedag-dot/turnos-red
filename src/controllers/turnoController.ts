@@ -7,6 +7,8 @@ import {
   eliminarTurno,
 } from '../services/turnoService.js';
 
+import { ApiError } from '../middleware/apiError.js';
+
 export function getTurnos(req: Request, res: Response): void {
   const turnos = obtenerTurnos();
 
@@ -17,19 +19,21 @@ export function getTurnoPorId(req: Request, res: Response): void {
   const id = Number(req.params.id);
 
   if (!Number.isInteger(id) || id <= 0) {
-    res.status(400).json({
-      error: 'El ID debe ser un número entero positivo',
-    });
-    return;
+    throw new ApiError(
+      400,
+      'El ID debe ser un número entero positivo',
+      'VALIDATION_ERROR',
+    );
   }
 
   const turno = obtenerTurnoPorId(id);
 
   if (!turno) {
-    res.status(404).json({
-      error: 'Turno no encontrado',
-    });
-    return;
+    throw new ApiError(
+      404,
+      'Turno no encontrado',
+      'NOT_FOUND',
+    );
   }
 
   res.status(200).json(turno);
@@ -39,10 +43,11 @@ export function postTurno(req: Request, res: Response): void {
   const turno = req.body;
 
   if (!turno) {
-    res.status(400).json({
-      error: 'Datos del turno no proporcionados',
-    });
-    return;
+    throw new ApiError(
+      400,
+      'Datos del turno no proporcionados',
+      'VALIDATION_ERROR',
+    );
   }
 
   const nuevoTurno = crearTurno(turno);
@@ -69,19 +74,21 @@ export function putTurno(req: Request, res: Response): void {
 
 const turnoActualizado = actualizarTurno(id, req.body);
 
-if (turnoActualizado === undefined) {
-  res.status(404).json({
-    error: 'Turno no encontrado',
-  });
-  return;
-}
+  if (turnoActualizado === undefined) {
+    throw new ApiError(
+      404,
+      'Turno no encontrado',
+      'NOT_FOUND',
+    );
+  }
 
-if (turnoActualizado === null) {
-  res.status(400).json({
-    error: 'Datos del turno inválidos',
-  });
-  return;
-}
+  if (turnoActualizado === null) {
+    throw new ApiError(
+      400,
+      'Datos del turno inválidos',
+      'VALIDATION_ERROR',
+    );
+  }
 
 res.status(200).json(turnoActualizado);
 }

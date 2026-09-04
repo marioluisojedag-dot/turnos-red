@@ -1,0 +1,31 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos/999999"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 404\", function () {\r
+
+      \    pm.response.to.have.status(404);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Error has standard format\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"status\", 404);\r
+
+      \    pm.expect(jsonData).to.have.property(\"message\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"code\", \"NOT_FOUND\");\r
+
+      \    pm.expect(jsonData).to.have.property(\"details\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/Turno no encontrado.resources/examples
+order: 4226383813081283

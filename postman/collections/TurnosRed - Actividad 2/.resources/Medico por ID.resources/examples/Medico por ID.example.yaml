@@ -1,0 +1,25 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/medicos/{{medicoId}}"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "87"
+    etag: W/"57-9buJY5z4wKeE+mSZvEwMYD+SzJ8"
+    date: Wed, 02 Sep 2026 02:55:57 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 3,
+        "nombre": "Pedro Martínez",
+        "especialidad": "Clínica médica",
+        "disponible": true
+      }
+order: 1788317759561

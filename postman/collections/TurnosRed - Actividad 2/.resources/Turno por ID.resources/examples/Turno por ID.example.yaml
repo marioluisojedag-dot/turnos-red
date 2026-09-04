@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/turnos/{{turnoId}}"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "138"
+    etag: W/"8a-BetjaYyLTTkC0PdBIki+WlOL53s"
+    date: Wed, 02 Sep 2026 02:58:44 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 10,
+        "paciente": "Ana Pérez",
+        "documento": "12345678",
+        "especialidad": "Pediatría",
+        "fecha": "2026-08-31",
+        "hora": "10:30",
+        "confirmado": true
+      }
+order: 1788317926162

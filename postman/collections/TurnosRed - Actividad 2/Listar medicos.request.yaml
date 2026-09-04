@@ -1,0 +1,5 @@
+$kind: http-request
+url: ""
+method: GET
+examples: .resources/Listar medicos.resources/examples
+order: 4480516506827948

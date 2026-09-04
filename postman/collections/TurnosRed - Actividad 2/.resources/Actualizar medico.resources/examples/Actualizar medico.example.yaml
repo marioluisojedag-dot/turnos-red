@@ -1,0 +1,38 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/medicos/{{medicoId}}"
+  method: PUT
+  body:
+    type: json
+    content: "{\r
+
+      \  \"id\": \"3\",\r
+
+      \  \"nombre\": \"Pedro Martínez Actualizado\",\r
+
+      \  \"especialidad\": \"Clínica médica\",\r
+
+      \  \"disponible\": false\r
+
+      }"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    content-type: application/json; charset=utf-8
+    content-length: "100"
+    etag: W/"64-Z5/0pqHmalpKBZ+FDpvTMxywgLI"
+    date: Wed, 02 Sep 2026 03:11:55 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 3,
+        "nombre": "Pedro Martínez Actualizado",
+        "especialidad": "Clínica médica",
+        "disponible": false
+      }
+order: 1788318716678

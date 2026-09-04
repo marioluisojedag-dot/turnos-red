@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos/{{turnoId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"10\",\r
+
+    \  \"paciente\": \"Ana Pérez Actualizada\",\r
+
+    \  \"documento\": \"12345678\",\r
+
+    \  \"especialidad\": \"Pediatría\",\r
+
+    \  \"fecha\": \"31/08/2026\",\r
+
+    \  \"hora\": \"11:00\",\r
+
+    \  \"confirmado\": \"no\"\r
+
+    }"
+examples: .resources/Actualizar turno.resources/examples
+order: 4496000560929702

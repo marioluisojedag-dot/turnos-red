@@ -1,0 +1,25 @@
+$kind: http-request
+url: "{{baseUrl}}/medicos/{{medicoId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Delete response has message\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"mensaje\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/Eliminar medico.resources/examples
+order: 4450045781117214

@@ -1,0 +1,48 @@
+$kind: http-request
+url: "{{baseUrl}}/turnos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"10\",\r
+
+    \  \"paciente\": \"Ana Pérez\",\r
+
+    \  \"documento\": \"12345678\",\r
+
+    \  \"especialidad\": \"Pediatría\",\r
+
+    \  \"fecha\": \"31/08/2026\",\r
+
+    \  \"hora\": \"10:30\",\r
+
+    \  \"confirmado\": \"si\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Response has turno id\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      });\r
+
+      \r
+
+      pm.collectionVariables.set(\"turnoId\", jsonData.id);"
+    language: text/javascript
+examples: .resources/Crear turno.resources/examples
+order: 4017058830902414
