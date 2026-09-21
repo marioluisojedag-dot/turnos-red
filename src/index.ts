@@ -8,6 +8,8 @@ import { leerTurnos } from './utils/archivoService.js';
 import { cargarTurnos, normalizarTurno } from './services/turnoService.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import medicoRoutes from './routes/medicoRoutes.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger.js';
 
 
 dotenv.config();
@@ -20,6 +22,8 @@ const PORT = Number(process.env.PORT) || 3000;
 const DATA_FILE = process.env.DATA_FILE || './data/turnos.json';
 
 app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(turnoRoutes);
 

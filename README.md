@@ -544,62 +544,85 @@ Las variables `turnoId` y `medicoId` se actualizan automáticamente después de 
 
 Durante el desarrollo se utilizó Inteligencia Artificial como herramienta de apoyo técnico.
 
-| Tarea                          | Herramienta | Prompt                                                                 | Respuesta generada                                          | Ajuste manual aplicado                                               |
-| ------------------------------ | ----------- | ---------------------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------- |
-| Revisión de arquitectura REST  | ChatGPT     | Solicitud de revisión de endpoints, verbos HTTP y códigos de respuesta | Sugerencias para mejorar la arquitectura RESTful            | Se revisaron y adaptaron los endpoints al código existente           |
-| Manejo centralizado de errores | ChatGPT     | Solicitud de una estructura uniforme para errores de la API            | Propuesta de `ApiError` y middleware centralizado           | Se adaptaron los mensajes y códigos a los requisitos de la actividad |
-| Validación con Zod             | ChatGPT     | Solicitud de esquemas Zod para turnos y médicos                        | Propuesta de schemas y validaciones                         | Se ajustaron especialidades y campos a los requisitos del proyecto   |
-| Filtros mediante query params  | ChatGPT     | Solicitud de filtros para `GET /turnos` y `GET /medicos`               | Propuesta de implementación mediante parámetros de consulta | Se implementaron y probaron los filtros en el proyecto               |
-| Pruebas automatizadas Postman  | ChatGPT     | Solicitud de tests para códigos HTTP y estructura JSON                 | Propuestas de scripts de prueba                             | Se adaptaron los tests a las respuestas reales de la API             |
-| Documentación                  | ChatGPT     | Solicitud de actualización y organización del README                   | Propuesta de estructura y documentación                     | Se revisó y adaptó la documentación a la implementación final        |
+| Tarea                          | Herramienta | Prompt                                                                                | Respuesta generada                                                 | Ajuste manual aplicado                                                                 |
+| ------------------------------ | ----------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| Revisión de arquitectura REST  | ChatGPT     | Solicitud de revisión de endpoints, verbos HTTP y códigos de respuesta                | Sugerencias para mejorar la arquitectura RESTful                   | Se revisaron y adaptaron los endpoints al código existente                             |
+| Manejo centralizado de errores | ChatGPT     | Solicitud de una estructura uniforme para errores de la API                           | Propuesta de `ApiError` y middleware centralizado                  | Se adaptaron los mensajes y códigos a los requisitos de la actividad                   |
+| Validación con Zod             | ChatGPT     | Solicitud de esquemas Zod para turnos y médicos                                       | Propuesta de schemas y validaciones                                | Se ajustaron especialidades y campos a los requisitos del proyecto                     |
+| Filtros mediante query params  | ChatGPT     | Solicitud de filtros para `GET /turnos` y `GET /medicos`                              | Propuesta de implementación mediante parámetros de consulta        | Se implementaron y probaron los filtros en el proyecto                                 |
+| Pruebas automatizadas Postman  | ChatGPT     | Solicitud de tests para códigos HTTP y estructura JSON                                | Propuestas de scripts de prueba                                    | Se adaptaron los tests a las respuestas reales de la API                               |
+| Documentación JSDoc/OpenAPI    | ChatGPT     | Solicitud de documentación de rutas y endpoints mediante Swagger/OpenAPI              | Propuestas de anotaciones JSDoc, parámetros, respuestas y schemas  | Se ajustaron las anotaciones a las rutas, validaciones y respuestas reales del backend |
+| Diagramas Mermaid              | ChatGPT     | Solicitud de diagramas de arquitectura y secuencia para documentar el flujo de la API | Propuestas de diagramas de componentes y secuencia                 | Se adaptaron los diagramas a la arquitectura y al flujo real del proyecto              |
+| ADR                            | ChatGPT     | Solicitud de estructura y contenido para ADR sobre OpenAPI y adopción futura de JWT   | Propuestas de estructura, decisiones, consecuencias y alternativas | Se revisaron las propuestas y se adaptaron a las decisiones y alcance de la actividad  |
+| Documentación README           | ChatGPT     | Solicitud de actualización y organización del README                                  | Propuesta de estructura y documentación                            | Se revisó y adaptó la documentación a la implementación final                          |
 
 La Inteligencia Artificial fue utilizada como apoyo para analizar, explicar y proponer soluciones. La implementación final fue revisada y ajustada manualmente.
 
 ## Arquitectura general
 
-```text
-                         turnos.json
-                              │
-                              ▼
-                     archivoService
-                              │
-                              ▼
-                      normalizarTurno
-                              │
-                              ▼
-                       turnos válidos
-                              │
-                              ▼
-                        Services
-                     ┌────────┴────────┐
-                     │                 │
-                     ▼                 ▼
-               Controllers       Lógica CRUD
-                     │                 │
-                     └────────┬────────┘
-                              ▼
-                            Routes
-                              │
-                              ▼
-                         Express REST
-                              │
-                              ▼
-                           Cliente
+El siguiente diagrama representa los principales componentes de la aplicación y la comunicación entre ellos.
 
+```mermaid
+flowchart LR
+    Cliente["Cliente Web / Postman"]
 
-             Operaciones sobre turnos
-                       │
-                       ▼
-                  EventEmitter
-                       │
-                       ▼
-                   Socket.IO
-                       │
-                       ▼
-              Clientes conectados
+    Routes["Express Routes"]
+    Zod["Middleware Zod"]
+    Controllers["Controllers"]
+    Services["Services"]
+
+    TurnosJSON[("turnos.json")]
+    Memoria["Memoria en ejecución<br/>turnos[] / medicos[]"]
+
+    EventBus["EventEmitter"]
+    SocketServer["Socket.IO Server"]
+    SocketClients["Clientes Socket.IO"]
+
+    Cliente --> Routes
+    Routes --> Zod
+    Zod --> Controllers
+    Controllers --> Services
+
+    TurnosJSON --> Services
+    Services --> Memoria
+
+    Services --> EventBus
+    EventBus --> SocketServer
+    SocketServer --> SocketClients
 ```
 
-La arquitectura separa las responsabilidades de lectura y normalización de datos, validación, lógica de negocio, controladores HTTP, rutas, manejo de errores y comunicación en tiempo real.
+## Secuencia — POST /turnos
+
+El siguiente diagrama representa el flujo de creación de un turno desde la petición HTTP hasta la respuesta al cliente y la notificación en tiempo real. Los datos iniciales se cargan desde `turnos.json` al iniciar el servidor; las operaciones CRUD posteriores se gestionan en memoria.
+
+```mermaid
+sequenceDiagram
+    participant Cliente as Cliente Web / Postman
+    participant Routes as Express Routes
+    participant Zod as Middleware Zod
+    participant Controller as Turno Controller
+    participant Service as Turno Service
+    participant Memoria as Memoria (turnos[])
+    participant EventBus as EventEmitter
+    participant Socket as Socket.IO Server
+    participant Clientes as Clientes Socket.IO
+
+    Cliente->>Routes: POST /turnos
+    Routes->>Zod: Validar req.body
+
+    alt Datos inválidos
+        Zod-->>Cliente: 400 Bad Request
+    else Datos válidos
+        Zod->>Controller: Datos validados
+        Controller->>Service: crearTurno(turno)
+        Service->>Memoria: turnos.push(turno)
+        Service->>EventBus: emitir turno:creado
+        EventBus->>Socket: emitir turno:nuevo
+        Socket-->>Clientes: turno:nuevo
+        Service-->>Controller: nuevoTurno
+        Controller-->>Cliente: 201 Created + JSON
+    end
+```
 
 ## Tecnologías utilizadas
 
